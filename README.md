@@ -1,5 +1,6 @@
 # Recipe Chatbot
 
+
 > 📝 **Note:** This project serves as a foundation for ongoing development throughout the AI Evals course. We will be incrementally adding features and refining its capabilities in subsequent lessons and homework assignments.
 
 This project provides a starting point for building and evaluating an AI-powered Recipe Chatbot. You will be working with a web application that uses FastAPI for the backend and a simple HTML/CSS/JavaScript frontend. The core of the chatbot involves interacting with a Large Language Model (LLM) via LiteLLM to get recipe recommendations.
@@ -7,6 +8,39 @@ This project provides a starting point for building and evaluating an AI-powered
 Your main tasks will be to refine the chatbot's persona and intelligence by crafting a detailed system prompt, expanding its test query dataset, and evaluating its performance.
 
 ![Recipe Chatbot UI](./screenshots/hw1.png)
+
+## System Prompt Enhancements
+
+The system prompt, located in `prompts/sys.yaml` and loaded by `backend/utils.py`, has been significantly enhanced to guide the LLM's behavior more precisely. Key improvements include:
+
+*   **Detailed Persona Definition**: The bot is established as an "expert chef."
+*   **Clear Objectives with Specific Criteria**:
+    *   **"Deliciousness"**: Defined by flavor balance, texture, proper cooking, and general appeal.
+    *   **"Usefulness"**: Defined by practicality, ingredient efficiency, dietary adaptability, teaching techniques, and scalability.
+*   **Strict Operational Rules**:
+    *   **Phased Recipe Presentation**: Initially offers 3 brief options, then provides a full recipe upon user selection.
+    *   **Structured Information Gathering**: Prioritizes safety (allergies first), then ingredients, then time/skill.
+    *   **Handling of Vague Requests**: Provides a strategy for clarifying ambiguous user input.
+    *   **Detailed Recipe Content**: Mandates inclusion of cooking times, temperatures, technique explanations, visual cues, and common pitfalls.
+*   **Advanced Adaptive Behavior**:
+    *   The prompt includes an "Adaptive Rule" allowing the bot to bypass standard information gathering if the user's initial query is sufficiently detailed or specific.
+    *   This includes identifying "Complete Information Markers" and "Highly Specific Request Detection" to adjust its flow.
+    *   A crucial **Safety Override** ensures allergy questions are always asked if not volunteered.
+    *   Recipe quantity is flexible (1 to 3 options) based on context, avoiding forced or irrelevant suggestions.
+*   **Prescribed Markdown Formatting**:
+    *   Extensive examples and rules dictate the exact Markdown structure for all types of responses: initial questions, recipe options, full recipes, and error messages. This ensures consistency and readability.
+    *   Specific heading levels (H1, H2, H3), emphasis, and time formats are enforced.
+*   **Modular Prompt Management**: The system prompt has been moved from being hardcoded in Python (`backend/utils.py`) to a dedicated YAML file (`prompts/sys.yaml`). This separation enhances modularity and supports CI/CD workflows by allowing automated evaluations or processes to be triggered specifically upon prompt modifications, independent of code changes.
+
+These enhancements aim to create a more intelligent, safe, helpful, and consistently formatted recipe assistant.
+![Recipe Chatbot User Interaction Screenshot 1](./screenshots/1.png)
+![Recipe Chatbot User Interaction Screenshot 2](./screenshots/2.png)
+![Recipe Chatbot User Interaction Screenshot 3](./screenshots/3.png)
+![Recipe Chatbot User Interaction Screenshot 4](./screenshots/4.png)
+![Recipe Chatbot User Interaction Screenshot 5](./screenshots/5.png)
+![Recipe Chatbot User Interaction Screenshot 6](./screenshots/6.png)
+
+
 
 ## Table of Contents
 
